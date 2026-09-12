@@ -11,32 +11,35 @@ function recursionData(result: string): JSX.Element {
     <ul className="c-jsonviewer">
       {Object.entries(result).map(([key, value], index) => {
         const type = typeof value;
+        const isArray = Array.isArray(value);
+
         switch (type) {
           case "object":
             if (value !== null) {
               const nestedHtml = recursionData(value);
+
               return (
-                <li key={index} className="c-jsonviewer c-jsonviewer__object">
-                  <strong className="c-jsonviewer">{key}</strong>: {nestedHtml}{" "}
-                  ,
+                <li
+                  key={index}
+                  className={`c-jsonviewer__${isArray ? "array" : "object"}`}
+                >
+                  <strong>{key}:</strong> {nestedHtml}
                 </li>
               );
             }
             break;
-          case "string":
-          case "number":
-          case "boolean":
+          default: {
             return (
-              <li key={index} className="c-jsonviewer c-jsonviewer__item">
+              <li key={index} className="c-jsonviewer__item">
                 {key}:
-                <span className={`c-jsonviewer c-jsonviewer--${type}`}>
-                  {String(value)},
+                <span className={`c-jsonviewer--${type}`}>
+                  {type === "string" ? `"${value}"` : String(value)},
                 </span>
               </li>
             );
-          default:
-            break;
+          }
         }
+        return null;
       })}
     </ul>
   );
