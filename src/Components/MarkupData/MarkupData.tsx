@@ -6,61 +6,57 @@ type MarkupProp = {
   file: Blob;
 };
 
-function recursionData(result: string): JSX.Element {
-  return (
-    <ul>
-      {Object.entries(result).map(([key, value], index) => {
-        const type = typeof value;
-        const isArray = Array.isArray(value);
+type JsonNode =
+  null | number | string | boolean | JsonNode[] | { [key: string]: JsonNode };
 
-        switch (type) {
-          case "object":
-            if (value !== null) {
-              const nestedHtml = recursionData(value);
+function recursionData(result: JsonNode): JSX.Element {
+  const type =
+    result === null ? "null" : Array.isArray(result) ? "array" : typeof result;
 
-              if (isArray) {
-                return (
-                  <li key={index} className="c-jsonviewer__array">
-                    <span className="c-jsonviewer__bracket">[</span>
-                    {nestedHtml}
-                    <span className="c-jsonviewer__bracket">],</span>
-                  </li>
-                );
-              }
+  if (Array.isArray(result)) {
+    return (
+      <ul className="c-jsonviewer c-jsonviewer__array">
+        <span className="c-jsonviewer__bracket">[</span>
+        {result.map((item, index) => (
+          <li key={index} className="c-jsonviewer__item">
+            {recursionData(item)}
+          </li>
+        ))}
+        <span className="c-jsonviewer__bracket">],</span>
+      </ul>
+    );
+  }
 
-              return (
-                <li key={index} className="c-jsonviewer__object">
-                  <strong className="c-jsonviewer--key">{key}:</strong>
-                  <span className="c-jsonviewer__bracket">&#123;</span>
-                  {nestedHtml}
-                  <span className="c-jsonviewer__bracket">&#125;,</span>
-                </li>
-              );
-            }
-            break;
+  switch (type) {
+    case "object": {
+      const safeObject = result as Record<string, JsonNode>;
 
-          default: {
-            let isFalse = "";
-            if (typeof value === "boolean" && value === true) {
-              isFalse = "c-jsonviewer--booleantrue";
-            } else if (typeof value === "boolean" && value === false) {
-              isFalse = "c-jsonviewer--booleanfalse ";
-            }
+      return (
+        <ul className="c-jsonviewer__object">
+          <span className="c-jsonviewer__bracket">&#123;</span>
+          {Object.entries(safeObject).map(([key, value], index) => (
+            <li key={`${key}-${index}`} className="c-jsonviewer__item">
+              <strong className="c-jsonviewer--key">{key}:</strong>
+              {recursionData(value)}
+            </li>
+          ))}
+          <span className="c-jsonviewer__bracket">&#125;,</span>
+        </ul>
+      );
+    }
 
-            return (
-              <li key={index} className="c-jsonviewer__item">
-                <strong>{key}:</strong>
-                <span className={`c-jsonviewer--${type} ${isFalse}`}>
-                  {type === "string" ? `"${value}"` : String(value)},
-                </span>
-              </li>
-            );
-          }
-        }
-        return null;
-      })}
-    </ul>
-  );
+    case "string":
+      return <span className="c-jsonviewer--string">"{String(result)}",</span>;
+
+    case "number":
+      return <span className="c-jsonviewer--number">{String(result)},</span>;
+
+    case "boolean":
+      return <span className="c-jsonviewer--boolean">{String(result)},</span>;
+
+    default:
+      return <span className="c-jsonviewer--unknown">{String(result)}</span>;
+  }
 }
 
 function MarkupData({ file }: MarkupProp) {
