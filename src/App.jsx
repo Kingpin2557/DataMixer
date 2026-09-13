@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState } from "react";
-import DataLoader from "./Components/Upload/DataLoader";
+import DataDropzone from "./Components/Upload/DataDropzone";
 import MarkupData from "./Components/MarkupData/MarkupData";
 
 function App() {
@@ -11,30 +11,26 @@ function App() {
     <>
       <main className="u-layout">
         <section className="u-left">
-          <DataLoader
-            id="json-left"
-            onFileSelect={(selectedFile) => setFile(selectedFile)}
-          />
+          <MarkupData file={file} />
 
-          {file ? (
-            <MarkupData file={file} />
-          ) : (
-            <p>Upload a JSON file to view its content.</p>
+          {!file && (
+            <DataDropzone
+              id="left-zone"
+              onFileDrop={(selectedFile) => setFile(selectedFile)}
+            />
           )}
         </section>
         <section className="u-layout u-middle">
           <p>hello</p>
         </section>
         <section className="u-right">
-          <DataLoader
-            id="json-right"
-            onFileSelect={(selectedFile) => setSecondFile(selectedFile)}
-          />
+          <MarkupData file={secondFile} />
 
-          {secondFile ? (
-            <MarkupData file={secondFile} />
-          ) : (
-            <p>Upload a JSON file to view its content.</p>
+          {!secondFile && (
+            <DataDropzone
+              id="right-zone"
+              onFileDrop={(selectedFile) => setSecondFile(selectedFile)}
+            />
           )}
         </section>
         <section className="u-bottom"></section>

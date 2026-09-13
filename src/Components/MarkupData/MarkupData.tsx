@@ -29,10 +29,17 @@ function recursionData(result: string): JSX.Element {
             }
             break;
           default: {
+            let isFalse = "";
+            if (typeof value === "boolean" && value === true) {
+              isFalse = "c-jsonviewer--booleantrue";
+            } else if (typeof value === "boolean" && value === false) {
+              isFalse = "c-jsonviewer--booleanfalse ";
+            }
+
             return (
               <li key={index} className="c-jsonviewer__item">
                 {key}:
-                <span className={`c-jsonviewer--${type}`}>
+                <span className={`c-jsonviewer--${type} ${isFalse}`}>
                   {type === "string" ? `"${value}"` : String(value)},
                 </span>
               </li>

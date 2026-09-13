@@ -4,13 +4,22 @@
     box-sizing: border-box;
 }
 
-main {
-    background-color: var(--json-background);
+body {
+    font-family: var(--mono);
 
+    background-color: var(--json-background);
+}
+
+main {
     width: 100vw;
     height: 100vh;
 
     color: var(--text-p);
+    padding: 10px;
+}
+
+section {
+    position: relative;
 }
 
 .u-layout {
@@ -28,6 +37,7 @@ main {
         width: 100%;
         grid-row: span 2 / span 2;
         background-color: var(--json-surfed-panel);
+        border-radius: 10px;
     }
 
     .u-bottom {

@@ -1,7 +1,7 @@
 .c-jsonviewer {
     list-style: none;
     overflow-y: auto;
-    height: 87%;
+    height: 100%;
 
     li {
         color: var(--json-keys);
@@ -13,8 +13,11 @@
     .c-jsonviewer--string {
         color: var(--json-string);
     }
-    .c-jsonviewer--boolean {
-        color: var(--json-boolean);
+    .c-jsonviewer--booleantrue {
+        color: var(--json-boolean-true);
+    }
+    .c-jsonviewer--booleanfalse {
+        color: var(--json-boolean-false);
     }
     .c-jsonviewer--number {
         color: var(--json-number);
