@@ -1,8 +1,10 @@
 .c-jsonviewer {
-    list-style: none;
     overflow-y: auto;
     height: 100%;
 
+    ul {
+        list-style: none;
+    }
     li {
         color: var(--json-keys);
     }
@@ -30,25 +32,9 @@
     }
     .c-jsonviewer__object {
         color: var(--json-object-brackets);
-        strong::after {
-            content: "  {";
-            font-weight: normal;
-        }
-
-        ul::after {
-            content: "},";
-        }
     }
 
     .c-jsonviewer__array {
         color: var(--json-array-brackets);
-        strong::after {
-            content: "  [";
-            font-weight: normal;
-        }
-
-        ul::after {
-            content: "],";
-        }
     }
 }

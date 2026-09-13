@@ -11,6 +11,7 @@ function DataDropzone({ id, onFileDrop }: DataLoaderProp) {
     onDrop: (acceptedFiles) => {
       onFileDrop(acceptedFiles[0] as File);
     },
+    noClick: true,
   });
 
   return (

@@ -8,7 +8,7 @@ type MarkupProp = {
 
 function recursionData(result: string): JSX.Element {
   return (
-    <ul className="c-jsonviewer">
+    <ul>
       {Object.entries(result).map(([key, value], index) => {
         const type = typeof value;
         const isArray = Array.isArray(value);
@@ -18,16 +18,27 @@ function recursionData(result: string): JSX.Element {
             if (value !== null) {
               const nestedHtml = recursionData(value);
 
+              if (isArray) {
+                return (
+                  <li key={index} className="c-jsonviewer__array">
+                    <span className="c-jsonviewer__bracket">[</span>
+                    {nestedHtml}
+                    <span className="c-jsonviewer__bracket">],</span>
+                  </li>
+                );
+              }
+
               return (
-                <li
-                  key={index}
-                  className={`c-jsonviewer__${isArray ? "array" : "object"}`}
-                >
-                  <strong>{key}:</strong> {nestedHtml}
+                <li key={index} className="c-jsonviewer__object">
+                  <strong className="c-jsonviewer--key">{key}:</strong>
+                  <span className="c-jsonviewer__bracket">&#123;</span>
+                  {nestedHtml}
+                  <span className="c-jsonviewer__bracket">&#125;,</span>
                 </li>
               );
             }
             break;
+
           default: {
             let isFalse = "";
             if (typeof value === "boolean" && value === true) {
@@ -38,7 +49,7 @@ function recursionData(result: string): JSX.Element {
 
             return (
               <li key={index} className="c-jsonviewer__item">
-                {key}:
+                <strong>{key}:</strong>
                 <span className={`c-jsonviewer--${type} ${isFalse}`}>
                   {type === "string" ? `"${value}"` : String(value)},
                 </span>
@@ -69,7 +80,7 @@ function MarkupData({ file }: MarkupProp) {
       }
     });
   }, [file]);
-  return <>{data}</>;
+  return <div className="c-jsonviewer">{data}</div>;
 }
 
 export default MarkupData;
