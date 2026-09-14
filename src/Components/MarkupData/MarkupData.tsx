@@ -10,37 +10,41 @@ type JsonNode =
   null | number | string | boolean | JsonNode[] | { [key: string]: JsonNode };
 
 function recursionData(result: JsonNode): JSX.Element {
-  const type =
-    result === null ? "null" : Array.isArray(result) ? "array" : typeof result;
-
-  if (Array.isArray(result)) {
-    return (
-      <ul className="c-jsonviewer c-jsonviewer__array">
-        <span className="c-jsonviewer__bracket">[</span>
-        {result.map((item, index) => (
-          <li key={index} className="c-jsonviewer__item">
-            {recursionData(item)}
-          </li>
-        ))}
-        <span className="c-jsonviewer__bracket">],</span>
-      </ul>
-    );
+  if (result === null) {
+    return <span className="c-jsonviewer--null">null</span>;
   }
 
+  const type = Array.isArray(result) ? "array" : typeof result;
+
   switch (type) {
+    case "array": {
+      const safeArray = result as JsonNode[];
+      return (
+        <ul className="c-jsonviewer__array">
+          <span className="c-jsonviewer__array">[</span>
+          {safeArray.map((item, index) => (
+            <li key={index} className="c-jsonviewer__item">
+              {recursionData(item)}
+            </li>
+          ))}
+          <span className="c-jsonviewer__array">],</span>
+        </ul>
+      );
+    }
+
     case "object": {
       const safeObject = result as Record<string, JsonNode>;
 
       return (
         <ul className="c-jsonviewer__object">
-          <span className="c-jsonviewer__bracket">&#123;</span>
+          <span className="c-jsonviewer__object">&#123;</span>
           {Object.entries(safeObject).map(([key, value], index) => (
             <li key={`${key}-${index}`} className="c-jsonviewer__item">
-              <strong className="c-jsonviewer--key">{key}:</strong>
+              <strong className="c-jsonviewer--key">{key}: </strong>
               {recursionData(value)}
             </li>
           ))}
-          <span className="c-jsonviewer__bracket">&#125;,</span>
+          <span className="c-jsonviewer__object">&#125;,</span>
         </ul>
       );
     }

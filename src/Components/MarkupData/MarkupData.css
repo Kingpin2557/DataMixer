@@ -25,9 +25,7 @@
         color: var(--json-number);
     }
 
-    .c-jsonviewer__item,
-    .c-jsonviewer__object,
-    .c-jsonviewer__array {
+    .c-jsonviewer__item {
         margin-inline-start: 1rem;
     }
     .c-jsonviewer__object {
