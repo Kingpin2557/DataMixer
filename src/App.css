@@ -24,7 +24,7 @@ section {
 
 .u-layout {
     display: grid;
-    grid-template-columns: minmax(200px, 400px) 1fr minmax(200px, 400px);
+    grid-template-columns: 1fr 700px 1fr;
     grid-template-rows: repeat(3, 1fr);
     gap: 8px;
 

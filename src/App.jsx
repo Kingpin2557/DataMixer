@@ -2,6 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import DataDropzone from "./Components/Upload/DataDropzone";
 import MarkupData from "./Components/MarkupData/MarkupData";
+import DataMixer from "./Components/DataMixer/DataMixer";
 
 function App() {
   const [file, setFile] = useState(null);
@@ -20,8 +21,8 @@ function App() {
             />
           )}
         </section>
-        <section className="u-layout u-middle">
-          <p>hello</p>
+        <section className="u-middle">
+          <DataMixer />
         </section>
         <section className="u-right">
           <MarkupData file={secondFile} />
