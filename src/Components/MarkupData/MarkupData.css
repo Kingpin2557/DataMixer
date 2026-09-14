@@ -28,11 +28,11 @@
     .c-jsonviewer__item {
         margin-inline-start: 1rem;
     }
-    .c-jsonviewer__object {
+    .c-jsonviewer__object > span {
         color: var(--json-object-brackets);
     }
 
-    .c-jsonviewer__array {
+    .c-jsonviewer__array > span {
         color: var(--json-array-brackets);
     }
 }

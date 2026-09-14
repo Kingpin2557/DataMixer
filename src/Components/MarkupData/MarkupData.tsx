@@ -21,13 +21,13 @@ function recursionData(result: JsonNode): JSX.Element {
       const safeArray = result as JsonNode[];
       return (
         <ul className="c-jsonviewer__array">
-          <span className="c-jsonviewer__array">[</span>
+          <span>[</span>
           {safeArray.map((item, index) => (
             <li key={index} className="c-jsonviewer__item">
               {recursionData(item)}
             </li>
           ))}
-          <span className="c-jsonviewer__array">],</span>
+          <span>],</span>
         </ul>
       );
     }
@@ -37,29 +37,35 @@ function recursionData(result: JsonNode): JSX.Element {
 
       return (
         <ul className="c-jsonviewer__object">
-          <span className="c-jsonviewer__object">&#123;</span>
+          <span>&#123;</span>
           {Object.entries(safeObject).map(([key, value], index) => (
             <li key={`${key}-${index}`} className="c-jsonviewer__item">
               <strong className="c-jsonviewer--key">{key}: </strong>
               {recursionData(value)}
             </li>
           ))}
-          <span className="c-jsonviewer__object">&#125;,</span>
+          <span>&#125;,</span>
         </ul>
       );
     }
 
     case "string":
-      return <span className="c-jsonviewer--string">"{String(result)}",</span>;
+      return <p className="c-jsonviewer--string">"{String(result)}",</p>;
 
     case "number":
-      return <span className="c-jsonviewer--number">{String(result)},</span>;
+      return <p className="c-jsonviewer--number">{String(result)},</p>;
 
     case "boolean":
-      return <span className="c-jsonviewer--boolean">{String(result)},</span>;
+      return (
+        <p
+          className={`${result ? "c-jsonviewer--booleantrue" : "c-jsonviewer--booleanfalse"}`}
+        >
+          {String(result)},
+        </p>
+      );
 
     default:
-      return <span className="c-jsonviewer--unknown">{String(result)}</span>;
+      return <p className="c-jsonviewer--unknown">{String(result)}</p>;
   }
 }
 
