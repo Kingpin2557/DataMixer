@@ -13,46 +13,25 @@ import {
   type OnEdgesChange,
   type OnConnect,
 } from "@xyflow/react";
-import NumberInput from "../CustomNodes/NumberInput/NumberInput.js";
 import "@xyflow/react/dist/style.css";
 
 import "./DataMixer.css";
-import ColorPreview from "../CustomNodes/ColorPreview/ColorPreview.js";
+import NodeContainer from "../NodeContainer/NodeContainer.js";
 
 const initialNodes: Node[] = [
   {
-    id: "n1",
+    id: "1",
     position: { x: 0, y: 0 },
-    data: { label: "Red" },
-    type: "colorUpdater",
-  },
-  {
-    id: "n2",
-    position: { x: 0, y: 100 },
-    data: { label: "Green" },
-    type: "colorUpdater",
-  },
-  {
-    id: "n3",
-    position: { x: 0, y: 200 },
-    data: { label: "Blue" },
-    type: "colorUpdater",
-  },
-  {
-    id: "n4",
-    position: { x: 100, y: 100 },
-    data: { label: "Color previewer" },
-    type: "colorPreviewer",
+    data: {
+      label: "String previewer",
+      type: "string",
+      value: "hehehehehehehe Hello my name is kingpin",
+    },
+    type: "customWrapper",
   },
 ];
 
-const initialEdges: Edge[] = [
-  // {
-  //   id: "n1-n2",
-  //   source: "n1",
-  //   target: "n2",
-  // },
-];
+const initialEdges: Edge[] = [];
 
 function DataMixer() {
   const [nodes, setNodes] = useState<Node[]>(initialNodes);
@@ -75,8 +54,7 @@ function DataMixer() {
   );
 
   const nodeTypes = {
-    colorUpdater: NumberInput,
-    colorPreviewer: ColorPreview,
+    customWrapper: NodeContainer,
   };
 
   const styles = {

@@ -11,6 +11,10 @@
     --json-background: hsl(40, 11%, 4%);
     --json-surfed-panel: hsl(0, 0%, 18%);
 
+    --nodes-surface: hsl(0, 0%, 31%);
+    --nodes-schadow-header: hsl(0deg 0% 0% / 26%);
+    --nodes-string: hsl(159, 64%, 28%);
+
     --sans: system-ui, "Segoe UI", Roboto, sans-serif;
     --heading: system-ui, "Segoe UI", Roboto, sans-serif;
     --mono: ui-monospace, Consolas, monospace;
