@@ -12,7 +12,7 @@
     --json-surfed-panel: hsl(0, 0%, 18%);
 
     --nodes-surface: hsl(0, 0%, 31%);
-    --nodes-schadow-header: hsl(0deg 0% 0% / 26%);
+    --nodes-schadow: hsl(0deg 0% 0% / 0.19);
     --nodes-string: hsl(159, 64%, 28%);
 
     --sans: system-ui, "Segoe UI", Roboto, sans-serif;
