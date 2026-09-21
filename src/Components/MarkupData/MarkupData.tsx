@@ -44,16 +44,12 @@ function MarkupData({ file }: MarkupProp) {
     };
   }, [file]);
 
-  if (!file) {
-    return <p>No JSON file selected.</p>;
-  }
-
   if (error) {
     return <p>{error}</p>;
   }
 
   if (data === undefined) {
-    return <p>Loading...</p>;
+    return;
   }
 
   return (
