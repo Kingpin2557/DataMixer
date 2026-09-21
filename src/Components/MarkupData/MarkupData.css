@@ -2,27 +2,46 @@
     overflow-y: auto;
     height: 100%;
 
+    p {
+        display: inline-block;
+    }
     ul {
         list-style: none;
     }
     li {
         color: var(--json-keys);
     }
-    span {
-        margin-inline-start: 5px;
-    }
 
     .c-jsonviewer--string {
         color: var(--json-string);
+
+        span {
+            color: var(--json-keys);
+        }
     }
+
     .c-jsonviewer--booleantrue {
         color: var(--json-boolean-true);
+
+        span {
+            color: var(--json-keys);
+        }
     }
+
     .c-jsonviewer--booleanfalse {
         color: var(--json-boolean-false);
+
+        span {
+            color: var(--json-keys);
+        }
     }
+
     .c-jsonviewer--number {
         color: var(--json-number);
+
+        span {
+            color: var(--json-keys);
+        }
     }
 
     .c-jsonviewer--key {

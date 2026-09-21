@@ -80,20 +80,30 @@ function recursionData(
     }
 
     case "string":
-      return <span className="c-jsonviewer--string">"{String(result)}",</span>;
+      return (
+        <p className="c-jsonviewer--string">
+          "{String(result)}"<span>,</span>
+        </p>
+      );
 
     case "number":
-      return <span className="c-jsonviewer--number">{String(result)},</span>;
+      return (
+        <p className="c-jsonviewer--number">
+          {String(result)}
+          <span>,</span>
+        </p>
+      );
 
     case "boolean":
       return (
-        <span
+        <p
           className={
             result ? "c-jsonviewer--booleantrue" : "c-jsonviewer--booleanfalse"
           }
         >
-          {String(result)},
-        </span>
+          {String(result)}
+          <span>,</span>
+        </p>
       );
 
     default:
