@@ -30,18 +30,6 @@ const initialNodes: Node[] = [
           key: "description",
           value: "hehehehehehehe Hello my name is kingpin",
         },
-        {
-          key: "description",
-          value: "hehehehehehehe Hello my name is kingpin",
-        },
-        {
-          key: "description",
-          value: "hehehehehehehe Hello my name is kingpin",
-        },
-        {
-          key: "description",
-          value: "hehehehehehehe Hello my name is kingpin",
-        },
       ],
     },
     type: "customWrapper",
