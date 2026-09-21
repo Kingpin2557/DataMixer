@@ -23,14 +23,9 @@
     border-radius: inherit;
 
     p {
-        padding-block: 10px;
         padding-inline-end: var(--padding);
         color: var(--json-string);
         max-width: 35ch;
-
-        &:has(small) {
-            padding-block: 0;
-        }
 
         small {
             color: var(--json-keys);
