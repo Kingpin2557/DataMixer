@@ -25,14 +25,18 @@
         color: var(--json-number);
     }
 
+    .c-jsonviewer--key {
+        height: fit-content;
+    }
     .c-jsonviewer__item {
         margin-inline-start: 1rem;
     }
-    .c-jsonviewer__object > span {
+
+    .c-jsonviewer__bracketobject {
         color: var(--json-object-brackets);
     }
 
-    .c-jsonviewer__array > span {
+    .c-jsonviewer__bracketarray {
         color: var(--json-array-brackets);
     }
 }

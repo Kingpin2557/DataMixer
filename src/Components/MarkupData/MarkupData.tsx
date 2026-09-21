@@ -9,7 +9,10 @@ type MarkupProp = {
 type JsonNode =
   null | number | string | boolean | JsonNode[] | { [key: string]: JsonNode };
 
-function recursionData(result: JsonNode): JSX.Element {
+function recursionData(
+  result: JsonNode,
+  hideOpeningBracket = false,
+): JSX.Element {
   if (result === null) {
     return <span className="c-jsonviewer--null">null</span>;
   }
@@ -19,15 +22,20 @@ function recursionData(result: JsonNode): JSX.Element {
   switch (type) {
     case "array": {
       const safeArray = result as JsonNode[];
+
       return (
         <ul className="c-jsonviewer__array">
-          <span>[</span>
+          {!hideOpeningBracket && (
+            <span className="c-jsonviewer__bracketarray">[</span>
+          )}
+
           {safeArray.map((item, index) => (
             <li key={index} className="c-jsonviewer__item">
               {recursionData(item)}
             </li>
           ))}
-          <span>],</span>
+
+          <span className="c-jsonviewer__bracketarray">],</span>
         </ul>
       );
     }
@@ -37,35 +45,59 @@ function recursionData(result: JsonNode): JSX.Element {
 
       return (
         <ul className="c-jsonviewer__object">
-          <span>&#123;</span>
-          {Object.entries(safeObject).map(([key, value], index) => (
-            <li key={`${key}-${index}`} className="c-jsonviewer__item">
-              <strong className="c-jsonviewer--key">{key}: </strong>
-              {recursionData(value)}
-            </li>
-          ))}
-          <span>&#125;,</span>
+          {!hideOpeningBracket && (
+            <span className="c-jsonviewer__bracketobject">&#123;</span>
+          )}
+
+          {Object.entries(safeObject).map(([key, value], index) => {
+            const isCollection = value !== null && typeof value === "object";
+            const isArray = Array.isArray(value);
+
+            return (
+              <li key={`${key}-${index}`} className="c-jsonviewer__item">
+                <strong className="c-jsonviewer--key">{key}: </strong>
+
+                {isCollection ? (
+                  <>
+                    <span
+                      className={`${isArray ? "c-jsonviewer__bracketarray " : "c-jsonviewer__bracketobject"}`}
+                    >
+                      {isArray ? "[" : "{"}
+                    </span>
+
+                    {recursionData(value, true)}
+                  </>
+                ) : (
+                  recursionData(value)
+                )}
+              </li>
+            );
+          })}
+
+          <span className="c-jsonviewer__bracketobject">&#125;,</span>
         </ul>
       );
     }
 
     case "string":
-      return <p className="c-jsonviewer--string">"{String(result)}",</p>;
+      return <span className="c-jsonviewer--string">"{String(result)}",</span>;
 
     case "number":
-      return <p className="c-jsonviewer--number">{String(result)},</p>;
+      return <span className="c-jsonviewer--number">{String(result)},</span>;
 
     case "boolean":
       return (
-        <p
-          className={`${result ? "c-jsonviewer--booleantrue" : "c-jsonviewer--booleanfalse"}`}
+        <span
+          className={
+            result ? "c-jsonviewer--booleantrue" : "c-jsonviewer--booleanfalse"
+          }
         >
           {String(result)},
-        </p>
+        </span>
       );
 
     default:
-      return <p className="c-jsonviewer--unknown">{String(result)}</p>;
+      return <span className="c-jsonviewer--unknown">{String(result)}</span>;
   }
 }
 
