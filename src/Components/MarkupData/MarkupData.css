@@ -11,6 +11,11 @@
     li {
         color: var(--json-keys);
     }
+
+    details,
+    summary {
+        display: inline-block;
+    }
 }
 
 .c-jsonviewer__icon {

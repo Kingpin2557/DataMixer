@@ -1,6 +1,4 @@
-import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import "./JsonViewer.css";
-import { useState, type ReactElement } from "react";
 
 type JsonNode =
   null | number | string | boolean | JsonNode[] | { [key: string]: JsonNode };
@@ -10,13 +8,7 @@ type JsonViewerProps = {
   hideOpeningBracket?: boolean;
 };
 
-function JsonViewer({
-  result,
-  hideOpeningBracket = false,
-}: JsonViewerProps): ReactElement {
-  const [isOpen, setOpen] = useState(false);
-  const Arrow = isOpen ? ChevronDownIcon : ChevronUpIcon;
-
+function JsonViewer({ result, hideOpeningBracket = false }: JsonViewerProps) {
   if (result === null) {
     return <span className="c-jsonviewer--null">null</span>;
   }
@@ -58,34 +50,30 @@ function JsonViewer({
 
             return (
               <li key={`${key}-${index}`} className="c-jsonviewer__item">
-                <strong className="c-jsonviewer--key">
-                  {isCollection ? (
-                    <Arrow
-                      onClick={() => {
-                        setOpen((pref) => !pref);
-                      }}
-                      className="c-jsonviewer__icon"
-                    />
-                  ) : null}
-                  {key}:
-                </strong>
-
                 {isCollection ? (
-                  <>
-                    <span
-                      className={
-                        isArray
-                          ? "c-jsonviewer__bracketarray "
-                          : "c-jsonviewer__bracketobject"
-                      }
-                    >
-                      {isArray ? "[" : "{"}
-                    </span>
+                  <details>
+                    <summary>
+                      <strong className="c-jsonviewer--key">
+                        {key}:
+                        <span
+                          className={
+                            isArray
+                              ? "c-jsonviewer__bracketarray"
+                              : "c-jsonviewer__bracketobject"
+                          }
+                        >
+                          {isArray ? "[" : "{"}
+                        </span>
+                      </strong>
+                    </summary>
 
                     <JsonViewer result={value} hideOpeningBracket />
-                  </>
+                  </details>
                 ) : (
-                  <JsonViewer result={value} />
+                  <>
+                    <strong className="c-jsonviewer--key">{key}: </strong>
+                    <JsonViewer result={value} />
+                  </>
                 )}
               </li>
             );
