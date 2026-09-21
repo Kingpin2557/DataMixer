@@ -25,8 +25,24 @@ const initialNodes: Node[] = [
     data: {
       label: "String previewer",
       type: "string",
-      key: "description",
-      value: "hehehehehehehe Hello my name is kingpin",
+      info: [
+        {
+          key: "description",
+          value: "hehehehehehehe Hello my name is kingpin",
+        },
+        {
+          key: "description",
+          value: "hehehehehehehe Hello my name is kingpin",
+        },
+        {
+          key: "description",
+          value: "hehehehehehehe Hello my name is kingpin",
+        },
+        {
+          key: "description",
+          value: "hehehehehehehe Hello my name is kingpin",
+        },
+      ],
     },
     type: "customWrapper",
   },

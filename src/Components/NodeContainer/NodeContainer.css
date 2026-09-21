@@ -1,6 +1,6 @@
 .c-nodecontainer {
     --padding: 1rem;
-
+    --heading-height: 40px;
     display: grid;
     grid-template-rows: 1fr;
     align-items: start;
@@ -45,13 +45,13 @@
     .c-nodecontainer__header {
         grid-row: 1;
         grid-column: 1;
-        height: stretch;
+        height: var(--heading-height);
         border-radius: 5px;
     }
 
     .c-nodecontainer__body--string {
         padding-block: 0;
-        height: 15px;
+        height: calc(100% / var(--sibling-count));
     }
 
     .c-nodecontainer__body > p {
@@ -78,7 +78,7 @@
     grid-row: 1;
 
     width: stretch;
-    height: 100%;
+    height: var(--heading-height);
     padding-inline: var(--padding);
     padding-block: 5px;
 

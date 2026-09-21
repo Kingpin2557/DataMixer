@@ -4,12 +4,16 @@ import { useState } from "react";
 import { Handle, Position } from "@xyflow/react";
 import type { Node, NodeProps } from "@xyflow/react";
 
+type Data = {
+  value: string;
+  key: string;
+};
+
 type NodeContainerData = {
   id: string;
   label: string;
   type: string;
-  value: string;
-  key: string;
+  info: Data[];
 };
 
 type NodeContainerNode = Node<NodeContainerData, "customWrapper">;
@@ -33,15 +37,32 @@ function NodeContainer({ data }: NodeProps<NodeContainerNode>) {
       </div>
 
       <div className="c-nodecontainer__body ">
-        <div
-          className={`c-nodecontainer__body c-nodecontainer__body--${data.type}`}
-        >
-          <p>
-            <small>{data.key}:</small>
-          </p>
-          <p>"{data.value}"</p>
-          <Handle id="1" type="source" position={Position.Right} />
-        </div>
+        {data.info.map((output, index) => {
+          const siblingCount = data.info.length;
+          console.log(siblingCount);
+          return (
+            <div
+              key={index}
+
+              className={`c-nodecontainer__body c-nodecontainer__body--${data.type}`}
+              style={
+                {
+                  "--sibling-count": siblingCount,
+                } as React.CSSProperties
+              }
+            >
+              <p>
+                <small>{output.key}:</small>
+              </p>
+              <p>"{output.value}"</p>
+              <Handle
+                id={String(index)}
+                type="source"
+                position={Position.Right}
+              />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
