@@ -1,5 +1,6 @@
+import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import "./JsonViewer.css";
-import type { ReactElement } from "react";
+import { useState, type ReactElement } from "react";
 
 type JsonNode =
   null | number | string | boolean | JsonNode[] | { [key: string]: JsonNode };
@@ -13,6 +14,9 @@ function JsonViewer({
   result,
   hideOpeningBracket = false,
 }: JsonViewerProps): ReactElement {
+  const [isOpen, setOpen] = useState(false);
+  const Arrow = isOpen ? ChevronDownIcon : ChevronUpIcon;
+
   if (result === null) {
     return <span className="c-jsonviewer--null">null</span>;
   }
@@ -54,7 +58,17 @@ function JsonViewer({
 
             return (
               <li key={`${key}-${index}`} className="c-jsonviewer__item">
-                <strong className="c-jsonviewer--key">{key}: </strong>
+                <strong className="c-jsonviewer--key">
+                  {isCollection ? (
+                    <Arrow
+                      onClick={() => {
+                        setOpen((pref) => !pref);
+                      }}
+                      className="c-jsonviewer__icon"
+                    />
+                  ) : null}
+                  {key}:
+                </strong>
 
                 {isCollection ? (
                   <>
