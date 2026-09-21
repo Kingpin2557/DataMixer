@@ -9,6 +9,7 @@ type NodeContainerData = {
   label: string;
   type: string;
   value: string;
+  key: string;
 };
 
 type NodeContainerNode = Node<NodeContainerData, "customWrapper">;
@@ -35,6 +36,9 @@ function NodeContainer({ data }: NodeProps<NodeContainerNode>) {
         <div
           className={`c-nodecontainer__body c-nodecontainer__body--${data.type}`}
         >
+          <p>
+            <small>{data.key}:</small>
+          </p>
           <p>"{data.value}"</p>
           <Handle id="1" type="source" position={Position.Right} />
         </div>
