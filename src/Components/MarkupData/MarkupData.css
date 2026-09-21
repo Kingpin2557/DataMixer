@@ -1,7 +1,6 @@
 .c-jsonviewer {
-    overflow-y: auto;
+    overflow: scroll;
     height: 100%;
-
     p {
         display: inline-block;
     }
@@ -10,52 +9,5 @@
     }
     li {
         color: var(--json-keys);
-    }
-
-    .c-jsonviewer--string {
-        color: var(--json-string);
-
-        span {
-            color: var(--json-keys);
-        }
-    }
-
-    .c-jsonviewer--booleantrue {
-        color: var(--json-boolean-true);
-
-        span {
-            color: var(--json-keys);
-        }
-    }
-
-    .c-jsonviewer--booleanfalse {
-        color: var(--json-boolean-false);
-
-        span {
-            color: var(--json-keys);
-        }
-    }
-
-    .c-jsonviewer--number {
-        color: var(--json-number);
-
-        span {
-            color: var(--json-keys);
-        }
-    }
-
-    .c-jsonviewer--key {
-        height: fit-content;
-    }
-    .c-jsonviewer__item {
-        margin-inline-start: 1rem;
-    }
-
-    .c-jsonviewer__bracketobject {
-        color: var(--json-object-brackets);
-    }
-
-    .c-jsonviewer__bracketarray {
-        color: var(--json-array-brackets);
     }
 }

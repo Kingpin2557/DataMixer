@@ -1,134 +1,66 @@
 import "./MarkupData.css";
-import { type JSX } from "react";
-import { useState, useEffect } from "react";
-
-type MarkupProp = {
-  file: Blob;
-};
+import { useEffect, useState } from "react";
+import JsonViewer from "../JsonViewer/JsonViewer.js";
 
 type JsonNode =
   null | number | string | boolean | JsonNode[] | { [key: string]: JsonNode };
 
-function recursionData(
-  result: JsonNode,
-  hideOpeningBracket = false,
-): JSX.Element {
-  if (result === null) {
-    return <span className="c-jsonviewer--null">null</span>;
-  }
-
-  const type = Array.isArray(result) ? "array" : typeof result;
-
-  switch (type) {
-    case "array": {
-      const safeArray = result as JsonNode[];
-
-      return (
-        <ul className="c-jsonviewer__array">
-          {!hideOpeningBracket && (
-            <span className="c-jsonviewer__bracketarray">[</span>
-          )}
-
-          {safeArray.map((item, index) => (
-            <li key={index} className="c-jsonviewer__item">
-              {recursionData(item)}
-            </li>
-          ))}
-
-          <span className="c-jsonviewer__bracketarray">],</span>
-        </ul>
-      );
-    }
-
-    case "object": {
-      const safeObject = result as Record<string, JsonNode>;
-
-      return (
-        <ul className="c-jsonviewer__object">
-          {!hideOpeningBracket && (
-            <span className="c-jsonviewer__bracketobject">&#123;</span>
-          )}
-
-          {Object.entries(safeObject).map(([key, value], index) => {
-            const isCollection = value !== null && typeof value === "object";
-            const isArray = Array.isArray(value);
-
-            return (
-              <li key={`${key}-${index}`} className="c-jsonviewer__item">
-                <strong className="c-jsonviewer--key">{key}: </strong>
-
-                {isCollection ? (
-                  <>
-                    <span
-                      className={`${isArray ? "c-jsonviewer__bracketarray " : "c-jsonviewer__bracketobject"}`}
-                    >
-                      {isArray ? "[" : "{"}
-                    </span>
-
-                    {recursionData(value, true)}
-                  </>
-                ) : (
-                  recursionData(value)
-                )}
-              </li>
-            );
-          })}
-
-          <span className="c-jsonviewer__bracketobject">&#125;,</span>
-        </ul>
-      );
-    }
-
-    case "string":
-      return (
-        <p className="c-jsonviewer--string">
-          "{String(result)}"<span>,</span>
-        </p>
-      );
-
-    case "number":
-      return (
-        <p className="c-jsonviewer--number">
-          {String(result)}
-          <span>,</span>
-        </p>
-      );
-
-    case "boolean":
-      return (
-        <p
-          className={
-            result ? "c-jsonviewer--booleantrue" : "c-jsonviewer--booleanfalse"
-          }
-        >
-          {String(result)}
-          <span>,</span>
-        </p>
-      );
-
-    default:
-      return <span className="c-jsonviewer--unknown">{String(result)}</span>;
-  }
-}
+type MarkupProp = {
+  file: Blob | null;
+};
 
 function MarkupData({ file }: MarkupProp) {
-  const [data, setData] = useState<JSX.Element | null>(null);
+  const [data, setData] = useState<JsonNode | undefined>(undefined);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!file) return;
-    const fr = new FileReader();
-    fr.readAsText(file);
-    fr.addEventListener("load", () => {
+    if (!file) {
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
       try {
-        const parsedResult = JSON.parse(fr.result as string);
-        const result = recursionData(parsedResult);
-        setData(result);
-      } catch (err) {
-        console.error("Error parsing JSON:", err);
+        const parsedResult = JSON.parse(String(reader.result)) as JsonNode;
+
+        setData(parsedResult);
+        setError(null);
+      } catch {
+        setData(undefined);
+        setError("The selected file contains invalid JSON.");
       }
-    });
+    };
+
+    reader.onerror = () => {
+      setData(undefined);
+      setError("The file could not be read.");
+    };
+
+    reader.readAsText(file);
+
+    return () => {
+      reader.abort();
+    };
   }, [file]);
-  return <div className="c-jsonviewer">{data}</div>;
+
+  if (!file) {
+    return <p>No JSON file selected.</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
+  if (data === undefined) {
+    return <p>Loading...</p>;
+  }
+
+  return (
+    <div className="c-jsonviewer">
+      <JsonViewer result={data} />
+    </div>
+  );
 }
 
 export default MarkupData;
