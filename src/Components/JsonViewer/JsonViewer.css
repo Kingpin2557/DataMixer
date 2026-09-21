@@ -1,3 +1,16 @@
+details,
+summary {
+    display: inline-block;
+}
+
+summary {
+    cursor: pointer;
+}
+
+details[open] > summary > .c-jsonviewer__collapsed {
+    display: none;
+}
+
 .c-jsonviewer--string {
     color: var(--json-string);
 

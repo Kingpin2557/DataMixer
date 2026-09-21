@@ -47,27 +47,39 @@ function JsonViewer({ result, hideOpeningBracket = false }: JsonViewerProps) {
           {Object.entries(safeObject).map(([key, value], index) => {
             const isCollection = value !== null && typeof value === "object";
             const isArray = Array.isArray(value);
+            const closingBracket = isArray ? "]" : "}";
 
             return (
               <li key={`${key}-${index}`} className="c-jsonviewer__item">
                 {isCollection ? (
                   <details>
-                    <summary>
-                      <strong className="c-jsonviewer--key">
-                        {key}:
-                        <span
-                          className={
-                            isArray
-                              ? "c-jsonviewer__bracketarray"
-                              : "c-jsonviewer__bracketobject"
-                          }
-                        >
-                          {isArray ? "[" : "{"}
-                        </span>
-                      </strong>
+                    <summary className="c-jsonviewer__summary">
+                      <strong className="c-jsonviewer--key">{key}:</strong>
+
+                      <span
+                        className={
+                          isArray
+                            ? "c-jsonviewer__bracketarray"
+                            : "c-jsonviewer__bracketobject"
+                        }
+                      >
+                        {isArray ? "[" : "{"}
+                      </span>
+
+                      <span
+                        className={`c-jsonviewer__collapsed ${
+                          isArray
+                            ? "c-jsonviewer__bracketarray"
+                            : "c-jsonviewer__bracketobject"
+                        }`}
+                      >
+                        ...{closingBracket}
+                      </span>
                     </summary>
 
-                    <JsonViewer result={value} hideOpeningBracket />
+                    <div className="c-jsonviewer__content">
+                      <JsonViewer result={value} hideOpeningBracket />
+                    </div>
                   </details>
                 ) : (
                   <>
