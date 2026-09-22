@@ -52,35 +52,36 @@ function JsonViewer({ result, hideOpeningBracket = false }: JsonViewerProps) {
             return (
               <li key={`${key}-${index}`} className="c-jsonviewer__item">
                 {isCollection ? (
-                  <details>
-                    <summary className="c-jsonviewer__summary">
-                      <strong className="c-jsonviewer--key">{key}:</strong>
+                  <>
+                    <strong className="c-jsonviewer--key">{key}:</strong>
+                    <details>
+                      <summary className="c-jsonviewer__summary">
+                        <span
+                          className={
+                            isArray
+                              ? "c-jsonviewer__bracketarray"
+                              : "c-jsonviewer__bracketobject"
+                          }
+                        >
+                          {isArray ? "[" : "{"}
+                        </span>
 
-                      <span
-                        className={
-                          isArray
-                            ? "c-jsonviewer__bracketarray"
-                            : "c-jsonviewer__bracketobject"
-                        }
-                      >
-                        {isArray ? "[" : "{"}
-                      </span>
+                        <span
+                          className={`c-jsonviewer__collapsed ${
+                            isArray
+                              ? "c-jsonviewer__bracketarray"
+                              : "c-jsonviewer__bracketobject"
+                          }`}
+                        >
+                          ...{closingBracket}
+                        </span>
+                      </summary>
 
-                      <span
-                        className={`c-jsonviewer__collapsed ${
-                          isArray
-                            ? "c-jsonviewer__bracketarray"
-                            : "c-jsonviewer__bracketobject"
-                        }`}
-                      >
-                        ...{closingBracket}
-                      </span>
-                    </summary>
-
-                    <div className="c-jsonviewer__content">
-                      <JsonViewer result={value} hideOpeningBracket />
-                    </div>
-                  </details>
+                      <div className="c-jsonviewer__content">
+                        <JsonViewer result={value} hideOpeningBracket />
+                      </div>
+                    </details>
+                  </>
                 ) : (
                   <>
                     <strong className="c-jsonviewer--key">{key}: </strong>
