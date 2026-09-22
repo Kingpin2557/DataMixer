@@ -1,0 +1,23 @@
+.c-stringpreviewer {
+    position: relative;
+
+    height: 100%;
+    padding-inline-start: var(--padding);
+    padding-block: 3px;
+
+    border-radius: inherit;
+}
+
+.c-stringpreviewer__value {
+    padding-inline-end: var(--padding);
+    color: var(--json-string);
+    max-width: 35ch;
+}
+.c-stringpreviewer__key {
+    color: var(--json-keys);
+}
+
+.c-stringpreviewer__handle {
+    background-color: hsl(142 64 56);
+    border: none;
+}

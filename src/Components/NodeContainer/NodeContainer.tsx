@@ -1,19 +1,16 @@
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import "./NodeContainer.css";
 import { useState } from "react";
-import { Handle, Position } from "@xyflow/react";
 import type { Node, NodeProps } from "@xyflow/react";
+import StringPreviewer, {
+  type Data,
+} from "../CustomNodes/StringPreviewer/StringPreviewer.js";
 
-type Data = {
-  value: string;
-  key: string;
-};
-
-type NodeContainerData = {
+export type NodeContainerData = {
   id: string;
   label: string;
   type: string;
-  info: Data[];
+  info: Data;
 };
 
 type NodeContainerNode = Node<NodeContainerData, "customWrapper">;
@@ -36,33 +33,8 @@ function NodeContainer({ data }: NodeProps<NodeContainerNode>) {
         <p>{data.label}</p>
       </div>
 
-      <div className="c-nodecontainer__body ">
-        {data.info.map((output, index) => {
-          const siblingCount = data.info.length;
-          console.log(siblingCount);
-          return (
-            <div
-              key={index}
-
-              className={`c-nodecontainer__body c-nodecontainer__body--${data.type}`}
-              style={
-                {
-                  "--sibling-count": siblingCount,
-                } as React.CSSProperties
-              }
-            >
-              <p>
-                <small>{output.key}:</small>
-              </p>
-              <p>"{output.value}"</p>
-              <Handle
-                id={String(index)}
-                type="source"
-                position={Position.Right}
-              />
-            </div>
-          );
-        })}
+      <div className="c-nodecontainer__body">
+        <StringPreviewer info={data.info} />
       </div>
     </div>
   );

@@ -6,7 +6,6 @@ import {
   applyEdgeChanges,
   applyNodeChanges,
   addEdge,
-  MiniMap,
   type Node,
   type Edge,
   type OnNodesChange,
@@ -25,14 +24,12 @@ const initialNodes: Node[] = [
     data: {
       label: "String previewer",
       type: "string",
-      info: [
-        {
-          key: "description",
-          value: "hehehehehehehe Hello my name is kingpin",
-        },
-      ],
+      info: {
+        key: "description",
+        value: "hehehehehehehe Hello my name is kingpin",
+      },
     },
-    type: "customWrapper",
+    type: "typePreviewer",
   },
 ];
 
@@ -59,7 +56,7 @@ function DataMixer() {
   );
 
   const nodeTypes = {
-    customWrapper: NodeContainer,
+    typePreviewer: NodeContainer,
   };
 
   const styles = {
@@ -79,7 +76,7 @@ function DataMixer() {
         nodeTypes={nodeTypes}
         fitView
       >
-        <MiniMap />
+        {/*<MiniMap />*/}
         <Background />
         <Controls />
       </ReactFlow>
