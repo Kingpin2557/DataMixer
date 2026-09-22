@@ -1,0 +1,45 @@
+.c-tooltip {
+    &:hover {
+        cursor: grab;
+    }
+}
+
+.c-tooltip--grabbing {
+    &:hover {
+        cursor: grabbing;
+    }
+}
+
+.c-tooltip:hover .c-tooltip__hover,
+.c-tooltip:focus-within .c-tooltip__hover {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+
+    cursor: grabbing;
+}
+
+.c-tooltip__hover {
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 20;
+
+    width: fit-content;
+
+    bottom: anchor(bottom);
+    right: anchor(bottom);
+    margin-block-start: 27px;
+
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+
+    background-color: var(--nodes-surface);
+    border-radius: 5px;
+    padding-block: 5px;
+    padding-inline: 10px;
+
+    box-shadow: 0px 3px 7px 1px var(--nodes-schadow);
+}

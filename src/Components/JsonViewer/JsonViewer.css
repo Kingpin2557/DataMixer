@@ -7,57 +7,19 @@ summary {
     cursor: pointer;
 }
 
+button {
+    background-color: transparent;
+    color: inherit;
+    border: none;
+}
+
 details[open] > summary > .c-jsonviewer__collapsed {
     display: none;
-}
-
-.c-jsonviewer--string {
-    color: var(--json-string);
-
-    span {
-        color: var(--json-keys);
-    }
-}
-
-.c-jsonviewer--booleantrue {
-    color: var(--json-boolean-true);
-
-    span {
-        color: var(--json-keys);
-    }
-}
-
-.c-jsonviewer--booleanfalse {
-    color: var(--json-boolean-false);
-
-    span {
-        color: var(--json-keys);
-    }
-}
-
-.c-jsonviewer--number {
-    color: var(--json-number);
-
-    span {
-        color: var(--json-keys);
-    }
-}
-
-.c-jsonviewer--key {
-    height: fit-content;
 }
 
 .c-jsonviewer__item {
     position: relative;
     margin-inline-start: 1rem;
-}
-
-.c-jsonviewer__bracketobject {
-    color: var(--json-object-brackets);
-}
-
-.c-jsonviewer__bracketarray {
-    color: var(--json-array-brackets);
 }
 
 .c-jsonviewer__icon {

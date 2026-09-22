@@ -45,3 +45,39 @@ section {
         grid-row-start: 3;
     }
 }
+
+.u-jsoncolor--string {
+    color: var(--json-string);
+
+    span {
+        color: var(--json-keys);
+    }
+}
+
+.u-jsoncolor--booleantrue {
+    color: var(--json-boolean-true);
+
+    span {
+        color: var(--json-keys);
+    }
+}
+.u-jsoncolor--booleanfalse {
+    color: var(--json-boolean-false);
+
+    span {
+        color: var(--json-keys);
+    }
+}
+.u-jsoncolor--number {
+    color: var(--json-number);
+
+    span {
+        color: var(--json-keys);
+    }
+}
+.u-jsoncolor--object {
+    color: var(--json-object-brackets);
+}
+.u-jsoncolor--array {
+    color: var(--json-array-brackets);
+}
