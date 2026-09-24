@@ -21,9 +21,7 @@ function App() {
             />
           )}
         </section>
-        <section className="u-middle">
-          <DataMixer />
-        </section>
+        <section className="u-middle"></section>
         <section className="u-right">
           <MarkupData file={secondFile} />
 
@@ -34,7 +32,9 @@ function App() {
             />
           )}
         </section>
-        <section className="u-bottom"></section>
+        <section className="u-bottom">
+          <DataMixer />
+        </section>
       </main>
     </>
   );
