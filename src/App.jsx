@@ -1,5 +1,6 @@
 import "./App.css";
 import { useState } from "react";
+import DropInput from "./Components/DropInputs/DropInputs.js";
 import DataDropzone from "./Components/Upload/DataDropzone.js";
 import MarkupData from "./Components/MarkupData/MarkupData.js";
 import DataMixer from "./Components/DataMixer/DataMixer.js";
@@ -10,22 +11,49 @@ function App() {
   const [file, setFile] = useState(null);
   const [secondFile, setSecondFile] = useState(null);
   const [activeTooltip, setActiveTooltip] = useState(null);
+  const [activeType, setActiveType] = useState(null);
+  const [number, setNumber] = useState({
+    value: null,
+    sourcePath: null,
+    sourceLabel: null,
+  });
+
+  console.log(number);
 
   return (
     <DragDropProvider
       onDragStart={({ operation }) => {
         const data = operation.source?.data;
-        console.log(data);
+        const type = operation.source?.data?.type;
 
-        if (data) {
-          setActiveTooltip(data);
+        setActiveTooltip(data);
+        setActiveType(type);
+      }}
+      onDragEnd={({ operation }) => {
+        const source = operation.source?.data;
+        const target = operation.target?.data;
+
+        if (
+          source &&
+          target &&
+          target.type === "input" &&
+          source.type === target.acceptedType &&
+          target.inputId === "pitch"
+        ) {
+          setNumber({
+            value: Number(source.number),
+            sourcePath: source.path,
+            sourceLabel: source.label,
+          });
         }
-      }}
-      onDragEnd={() => {
+
         setActiveTooltip(null);
+        setActiveType(null);
       }}
+
       onDragCancel={() => {
         setActiveTooltip(null);
+        setActiveType(null);
       }}
     >
       <main className="u-layout">
@@ -40,10 +68,20 @@ function App() {
           )}
         </section>
         <section className="u-middle">
-          <div>
-            <label htmlFor="pitch">Pitch</label>
-            <input type="number" id="pitch" />
-          </div>
+          <DropInput
+            id="pitch"
+            value={number.value}
+            onChange={(value) => {
+              setNumber((current) => ({
+                ...current,
+                value,
+                sourcePath: null,
+                sourceLabel: null,
+              }));
+            }}
+            acceptedType="number"
+            activeType={activeType}
+          />
         </section>
         <section className="u-right">
           <MarkupData file={secondFile} />

@@ -1,0 +1,20 @@
+.c-dropinput {
+    transition:
+        opacity 150ms ease,
+        border-color 150ms ease,
+        box-shadow 150ms ease;
+}
+
+.c-dropinput--valid {
+    border-color: var(--json-keys);
+    box-shadow: 0 0 0 2px var(--json-keys);
+}
+
+.c-dropinput--active {
+    background-color: var(--nodes-surface);
+}
+
+.c-dropinput--disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}

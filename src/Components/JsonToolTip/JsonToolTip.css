@@ -37,16 +37,10 @@
     cursor: grabbing;
 }
 
-/* Hide the original expanded tooltip while dragging. */
 .c-tooltip.c-tooltip--dragging .c-tooltip__content {
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
-}
-
-/* Keep the overlay expanded while it is being dragged. */
-.c-tooltip--overlay {
-    margin: 0;
 }
 
 .c-tooltip--overlay .c-tooltip__content {

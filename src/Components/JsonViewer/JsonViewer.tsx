@@ -10,16 +10,44 @@ type JsonViewerProps = {
   path?: string;
 };
 
+function getArrayPath(path: string, index: number): string {
+  return `${path}[${index}]`;
+}
+
+function getObjectPath(path: string, key: string): string {
+  const isSimpleKey = /^[A-Za-z_$][\w$]*$/.test(key);
+
+  return isSimpleKey ? `${path}.${key}` : `${path}[${JSON.stringify(key)}]`;
+}
+
+function getValueType(value: JsonNode): string {
+  if (Array.isArray(value)) {
+    return "array";
+  }
+
+  return typeof value;
+}
+
+function getValueClass(value: JsonNode): string {
+  const type = getValueType(value);
+
+  if (type === "boolean") {
+    return `boolean${value}`;
+  }
+
+  return type;
+}
+
 function JsonViewer({
   result,
   hideOpeningBracket = false,
-  path = "root",
+  path = "$",
 }: JsonViewerProps) {
   if (result === null) {
     return <span className="c-jsonviewer--null">null</span>;
   }
 
-  const type = Array.isArray(result) ? "array" : typeof result;
+  const type = getValueType(result);
 
   switch (type) {
     case "array": {
@@ -30,7 +58,7 @@ function JsonViewer({
           {!hideOpeningBracket && <span className="u-jsoncolor--array">[</span>}
 
           {safeArray.map((item, index) => {
-            const itemPath = `${path}-${index}`;
+            const itemPath = getArrayPath(path, index);
 
             return (
               <li key={itemPath} className="c-jsonviewer__item">
@@ -45,79 +73,54 @@ function JsonViewer({
     }
 
     case "object": {
-      const safeObject = result as Record<string, JsonNode>;
-
       return (
         <ul className="c-jsonviewer__object">
           {!hideOpeningBracket && (
             <span className="u-jsoncolor--object">&#123;</span>
           )}
 
-          {Object.entries(safeObject).map(([key, value], index) => {
+          {Object.entries(result).map(([key, value]) => {
+            const itemPath = getObjectPath(path, key);
             const isCollection = value !== null && typeof value === "object";
             const isArray = Array.isArray(value);
+            const bracketClass = isArray
+              ? "u-jsoncolor--array"
+              : "u-jsoncolor--object";
             const closingBracket = isArray ? "]" : "}";
-            const valueType = Array.isArray(value) ? "array" : typeof value;
-
-            const valueClass =
-              valueType === "boolean" ? `boolean${value}` : `${valueType}`;
-
-            const itemPath = `${path}-${index}`;
 
             return (
               <li key={itemPath} className="c-jsonviewer__item">
+                <JsonToolTip
+                  label={key}
+                  value={value}
+                  path={itemPath}
+                  type={getValueClass(value)}
+                />
+
                 {isCollection ? (
-                  <>
-                    <JsonToolTip
-                      label={key}
-                      value={value}
-                      path={itemPath}
-                      type={valueClass}
-                    />
+                  <details>
+                    <summary className="c-jsonviewer__summary">
+                      <span className={bracketClass}>
+                        {isArray ? "[" : "{"}
+                      </span>
 
-                    <details>
-                      <summary className="c-jsonviewer__summary">
-                        <span
-                          className={
-                            isArray
-                              ? "u-jsoncolor--array"
-                              : "u-jsoncolor--object"
-                          }
-                        >
-                          {isArray ? "[" : "{"}
-                        </span>
+                      <span
+                        className={`c-jsonviewer__collapsed ${bracketClass}`}
+                      >
+                        ...{closingBracket}
+                      </span>
+                    </summary>
 
-                        <span
-                          className={`c-jsonviewer__collapsed ${
-                            isArray
-                              ? "u-jsoncolor--array"
-                              : "u-jsoncolor--object"
-                          }`}
-                        >
-                          ...{closingBracket}
-                        </span>
-                      </summary>
-
-                      <div className="c-jsonviewer__content">
-                        <JsonViewer
-                          result={value}
-                          hideOpeningBracket
-                          path={itemPath}
-                        />
-                      </div>
-                    </details>
-                  </>
+                    <div className="c-jsonviewer__content">
+                      <JsonViewer
+                        result={value}
+                        hideOpeningBracket
+                        path={itemPath}
+                      />
+                    </div>
+                  </details>
                 ) : (
-                  <>
-                    <JsonToolTip
-                      label={key}
-                      value={value}
-                      path={itemPath}
-                      type={valueClass}
-                    />
-
-                    <JsonViewer result={value} path={`${itemPath}-value`} />
-                  </>
+                  <JsonViewer result={value} path={itemPath} />
                 )}
               </li>
             );

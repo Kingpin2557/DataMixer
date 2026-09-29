@@ -1,7 +1,7 @@
 .c-jsonviewer {
-    overflow: scroll;
+    overflow-x: scroll;
     height: 100%;
-    max-width: 100%;
+
     p {
         display: inline-block;
     }
