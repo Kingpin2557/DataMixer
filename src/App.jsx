@@ -4,6 +4,7 @@ import DataDropzone from "./Components/Upload/DataDropzone.js";
 import MarkupData from "./Components/MarkupData/MarkupData.js";
 import DataMixer from "./Components/DataMixer/DataMixer.js";
 import { DragDropProvider, DragOverlay } from "@dnd-kit/react";
+import { JsonToolTipOverlay } from "./Components/JsonToolTip/JsonToolTip.js";
 
 function App() {
   const [file, setFile] = useState(null);
@@ -14,8 +15,11 @@ function App() {
     <DragDropProvider
       onDragStart={({ operation }) => {
         const data = operation.source?.data;
+        console.log(data);
 
-        setActiveTooltip(data);
+        if (data) {
+          setActiveTooltip(data);
+        }
       }}
       onDragEnd={() => {
         setActiveTooltip(null);
@@ -58,11 +62,12 @@ function App() {
 
       <DragOverlay>
         {activeTooltip ? (
-          <div className="c-drag-overlay">
-            <span className={`u-jsoncolor--${activeTooltip.type}`}>
-              {String(activeTooltip.value)}
-            </span>
-          </div>
+          <JsonToolTipOverlay
+            label={activeTooltip.label}
+            value={activeTooltip.value}
+            path={activeTooltip.path}
+            type={activeTooltip.type}
+          />
         ) : null}
       </DragOverlay>
     </DragDropProvider>

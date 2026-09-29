@@ -1,17 +1,35 @@
 .c-tooltip {
-    &:hover {
-        cursor: grab;
-    }
+    position: relative;
+    display: inline-block;
+
+    color: var(--json-keys);
 }
 
-.c-tooltip--grabbing {
-    &:hover {
-        cursor: grabbing;
-    }
+.c-tooltip:hover {
+    cursor: grab;
 }
 
-.c-tooltip:hover .c-tooltip__hover,
-.c-tooltip:focus-within .c-tooltip__hover {
+.c-tooltip__content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 20;
+
+    width: max-content;
+    margin: 8px 0 0;
+    padding: 5px 10px;
+
+    background-color: var(--nodes-surface);
+    border-radius: 5px;
+    box-shadow: 0 3px 7px 1px var(--nodes-schadow);
+
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.c-tooltip:hover .c-tooltip__content,
+.c-tooltip:focus-within .c-tooltip__content {
     visibility: visible;
     opacity: 1;
     pointer-events: auto;
@@ -19,27 +37,20 @@
     cursor: grabbing;
 }
 
-.c-tooltip__hover {
-    position: absolute;
-
-    inset: 0;
-
-    z-index: 20;
-
-    width: fit-content;
-
-    bottom: anchor(bottom);
-    right: anchor(bottom);
-    margin-block-start: 27px;
-
+/* Hide the original expanded tooltip while dragging. */
+.c-tooltip.c-tooltip--dragging .c-tooltip__content {
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
+}
 
-    background-color: var(--nodes-surface);
-    border-radius: 5px;
-    padding-block: 5px;
-    padding-inline: 10px;
+/* Keep the overlay expanded while it is being dragged. */
+.c-tooltip--overlay {
+    margin: 0;
+}
 
-    box-shadow: 0px 3px 7px 1px var(--nodes-schadow);
+.c-tooltip--overlay .c-tooltip__content {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: none;
 }

@@ -7,14 +7,28 @@ type JsonToolTipProps = {
   label: string;
   value: JsonNode;
   path: string;
-  type: JsonNode;
+  type: string;
 };
 
-function JsonToolTip({ label, value, path, type }: JsonToolTipProps) {
-  const tooltipId = `tooltip-${path}`;
+function TooltipContent({
+  label,
+  value,
+  type,
+}: Pick<JsonToolTipProps, "label" | "value" | "type">) {
+  return (
+    <p className="c-tooltip__content">
+      <small>{label}:</small>
+      <br />
+      <span className={`u-jsoncolor--${type}`}>{String(value)}</span>
+    </p>
+  );
+}
 
-  const { ref } = useDraggable({
-    id: tooltipId,
+function JsonToolTip({ label, value, path, type }: JsonToolTipProps) {
+  const id = `tooltip-${path}`;
+
+  const { ref, isDragging } = useDraggable({
+    id,
     data: {
       label,
       value,
@@ -24,14 +38,27 @@ function JsonToolTip({ label, value, path, type }: JsonToolTipProps) {
   });
 
   return (
-    <span ref={ref} id={tooltipId} className="c-tooltip">
+    <span
+      ref={ref}
+      id={id}
+      className={`c-tooltip ${isDragging ? "c-tooltip--dragging" : ""}`}
+    >
       <strong>{label}:</strong>
 
-      <p className="c-tooltip__hover">
-        <small>{label}:</small>
-        <br />
-        <span className={`u-jsoncolor--${type}`}>{String(value)}</span>
-      </p>
+      <TooltipContent label={label} value={value} type={type} />
+    </span>
+  );
+}
+
+export function JsonToolTipOverlay({
+  label,
+  value,
+  path,
+  type,
+}: JsonToolTipProps) {
+  return (
+    <span className="c-tooltip c-tooltip--overlay" id={`overlay-${path}`}>
+      <TooltipContent label={label} value={value} type={type} />
     </span>
   );
 }
