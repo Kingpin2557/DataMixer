@@ -18,8 +18,6 @@ function App() {
     sourceLabel: null,
   });
 
-  console.log(number);
-
   return (
     <DragDropProvider
       onDragStart={({ operation }) => {
