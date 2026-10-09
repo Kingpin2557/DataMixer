@@ -2,7 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import DropInput from "./Components/DropInputs/DropInputs.js";
 import DataDropzone from "./Components/Upload/DataDropzone.js";
-import MarkupData from "./Components/MarkupData/MarkupData.js";
+import FileReader from "./Components/FileReader/FileReader.js";
 import DataMixer from "./Components/DataMixer/DataMixer.js";
 import { DragDropProvider, DragOverlay } from "@dnd-kit/react";
 import { JsonToolTipOverlay } from "./Components/JsonToolTip/JsonToolTip.js";
@@ -56,7 +56,7 @@ function App() {
     >
       <main className="u-layout">
         <section className="u-left">
-          <MarkupData file={file} />
+          <FileReader file={file} />
 
           {!file && (
             <DataDropzone
@@ -82,7 +82,7 @@ function App() {
           />
         </section>
         <section className="u-right">
-          <MarkupData file={secondFile} />
+          <FileReader file={secondFile} />
 
           {!secondFile && (
             <DataDropzone

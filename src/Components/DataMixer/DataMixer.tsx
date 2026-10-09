@@ -26,7 +26,7 @@ const initialNodes: Node[] = [
       type: "string",
       info: {
         key: "description",
-        value: "I am Kingpin",
+        value: "Helloo",
       },
     },
     type: "typePreviewer",

@@ -1,9 +1,5 @@
-import "./MarkupData.css";
 import { useEffect, useState } from "react";
-import JsonViewer from "../JsonViewer/JsonViewer.js";
-
-type JsonNode =
-  null | number | string | boolean | JsonNode[] | { [key: string]: JsonNode };
+import JsonViewer, { type JsonNode } from "../JsonViewer/JsonViewer.js";
 
 type MarkupProp = {
   file: Blob | null;
@@ -52,11 +48,7 @@ function MarkupData({ file }: MarkupProp) {
     return;
   }
 
-  return (
-    <div className="c-jsonviewer">
-      <JsonViewer result={data} />
-    </div>
-  );
+  return <JsonViewer result={data} />;
 }
 
 export default MarkupData;

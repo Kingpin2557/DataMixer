@@ -1,20 +1,35 @@
-details,
-summary {
-    display: inline;
+.c-jsonviewer {
+    overflow-x: scroll;
+    height: 100%;
+
+    p {
+        display: inline-block;
+    }
+    ul {
+        list-style: none;
+    }
+    li {
+        color: var(--json-keys);
+    }
+
+    details > summary {
+        display: flex;
+        align-items: center;
+
+        list-style: none;
+
+        cursor: pointer;
+
+        width: fit-content;
+    }
+    details > summary::-webkit-details-marker {
+        display: none;
+    }
 }
 
-summary {
-    cursor: pointer;
-}
-
-button {
-    background-color: transparent;
-    color: inherit;
-    border: none;
-}
-
-details[open] > summary > .c-jsonviewer__collapsed {
-    display: none;
+.c-jsonviewer__item,
+.c-jsonviewer details > ul {
+    margin: 0 0 0 1rem;
 }
 
 .c-jsonviewer__item {
@@ -22,14 +37,35 @@ details[open] > summary > .c-jsonviewer__collapsed {
     margin-inline-start: 1rem;
 }
 
-.c-jsonviewer__icon {
-    position: absolute;
-    top: 6px;
-    left: -18px;
+.c-jsonviewer__object {
+    color: var(--json-object-brackets);
+}
 
+.c-jsonviewer__array {
+    color: var(--json-array-brackets);
+}
+
+.c-jsonviewer__elements {
+    margin-inline-start: 15px;
+}
+
+.c-jsonviewer__icon {
     width: auto;
     height: 14px;
     aspect-ratio: 1 / 1;
     cursor: pointer;
+    flex: 0 0 14px;
     margin-inline-end: 10px;
+}
+
+.c-jsonviewer details[open] > summary .c-jsonviewer__icon {
+    transform: rotate(90deg);
+}
+
+.c-jsonviewer details:not([open]) .c-jsonviewer__array--opening::after {
+    content: "...]";
+}
+
+.c-jsonviewer details:not([open]) .c-jsonviewer__object--opening::after {
+    content: "...}";
 }
