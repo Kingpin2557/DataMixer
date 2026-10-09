@@ -21,6 +21,7 @@
         cursor: pointer;
 
         width: fit-content;
+        color: var(--json-keys);
     }
     details > summary::-webkit-details-marker {
         display: none;
