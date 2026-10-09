@@ -49,7 +49,7 @@ function renderValue(value: JsonNode): ReactNode {
       if (!Array.isArray(value)) return null;
 
       return (
-        <details>
+        <details open>
           <summary>
             <ChevronRightIcon
               className="c-jsonviewer__icon"

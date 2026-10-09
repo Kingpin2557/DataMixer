@@ -1,4 +1,4 @@
-import "./DataDropzone.css";
+import "./Dropzone.css";
 import { useDropzone } from "react-dropzone";
 
 type DataLoaderProp = {
@@ -6,7 +6,7 @@ type DataLoaderProp = {
   onFileDrop: (file: Blob) => void;
 };
 
-function DataDropzone({ id, onFileDrop }: DataLoaderProp) {
+function Dropzone({ id, onFileDrop }: DataLoaderProp) {
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles) => {
       onFileDrop(acceptedFiles[0] as File);
@@ -15,11 +15,11 @@ function DataDropzone({ id, onFileDrop }: DataLoaderProp) {
   });
 
   return (
-    <div {...getRootProps()} className="c-datadropzone">
+    <div {...getRootProps()} className="c-dropzone">
       <input {...getInputProps()} id={id} />
       <p>Drag 'n' drop some files here, or click to select files</p>
     </div>
   );
 }
 
-export default DataDropzone;
+export default Dropzone;

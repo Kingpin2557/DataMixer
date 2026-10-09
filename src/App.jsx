@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 import DropInput from "./Components/DropInputs/DropInputs.js";
-import DataDropzone from "./Components/Upload/DataDropzone.js";
+import Dropzone from "./Components/Dropzone/Dropzone.js";
 import FileReader from "./Components/FileReader/FileReader.js";
 import DataMixer from "./Components/DataMixer/DataMixer.js";
 import { DragDropProvider, DragOverlay } from "@dnd-kit/react";
@@ -59,7 +59,7 @@ function App() {
           <FileReader file={file} />
 
           {!file && (
-            <DataDropzone
+            <Dropzone
               id="left-zone"
               onFileDrop={(selectedFile) => setFile(selectedFile)}
             />
@@ -85,7 +85,7 @@ function App() {
           <FileReader file={secondFile} />
 
           {!secondFile && (
-            <DataDropzone
+            <Dropzone
               id="right-zone"
               onFileDrop={(selectedFile) => setSecondFile(selectedFile)}
             />
