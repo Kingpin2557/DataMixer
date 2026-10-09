@@ -25,6 +25,18 @@
     details > summary::-webkit-details-marker {
         display: none;
     }
+
+    details[open] > summary .c-jsonviewer__icon {
+        transform: rotate(90deg);
+    }
+
+    details:not([open]) .c-jsonviewer__array--opening::after {
+        content: "...]";
+    }
+
+    details:not([open]) .c-jsonviewer__object--opening::after {
+        content: "...}";
+    }
 }
 
 .c-jsonviewer__item,
@@ -56,16 +68,4 @@
     cursor: pointer;
     flex: 0 0 14px;
     margin-inline-end: 10px;
-}
-
-.c-jsonviewer details[open] > summary .c-jsonviewer__icon {
-    transform: rotate(90deg);
-}
-
-.c-jsonviewer details:not([open]) .c-jsonviewer__array--opening::after {
-    content: "...]";
-}
-
-.c-jsonviewer details:not([open]) .c-jsonviewer__object--opening::after {
-    content: "...}";
 }
