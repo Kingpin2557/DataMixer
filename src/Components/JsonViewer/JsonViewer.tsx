@@ -1,5 +1,7 @@
 import "./JsonViewer.css";
 import type { ReactNode } from "react";
+import Draggable from "../Draggable/Draggable.js";
+
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 
 export type JsonNode =
@@ -15,7 +17,7 @@ function getType(value: JsonNode): string {
   return typeof value;
 }
 
-function renderValue(value: JsonNode): ReactNode {
+function renderValue(value: JsonNode, path: string = "root"): ReactNode {
   const type = getType(value);
 
   switch (type) {
@@ -37,7 +39,7 @@ function renderValue(value: JsonNode): ReactNode {
           <ul className="c-jsonviewer__item">
             {Object.entries(value).map(([key, child]) => (
               <li key={key}>
-                {key}: {renderValue(child)}
+                {key}: {renderValue(child, `${path}.${key}`)}
               </li>
             ))}
           </ul>
@@ -63,7 +65,7 @@ function renderValue(value: JsonNode): ReactNode {
           <ul>
             {value.map((child, index) => (
               <li key={index} className="c-jsonviewer__elements">
-                {renderValue(child)}
+                {renderValue(child, `${path}[${JSON.stringify(index)}]`)}
               </li>
             ))}
           </ul>
@@ -72,18 +74,26 @@ function renderValue(value: JsonNode): ReactNode {
       );
 
     case "boolean":
+      console.log(type);
+
       return (
-        <span className={`u-jsoncolor--boolean${value}`}>{String(value)}</span>
+        <Draggable id={path} value={String(value)} path={path} type={type} />
       );
 
     case "number":
-      return <span className="u-jsoncolor--number">{String(value)}</span>;
+      return (
+        <Draggable id={path} value={String(value)} path={path} type={type} />
+      );
 
     case "string":
-      return <span className="u-jsoncolor--string">{String(value)}</span>;
+      return (
+        <Draggable id={path} value={String(value)} path={path} type={type} />
+      );
 
     default:
-      return <span>{String(value)}</span>;
+      return (
+        <Draggable id={path} value={String(value)} path={path} type={type} />
+      );
   }
 }
 
