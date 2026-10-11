@@ -73,9 +73,7 @@ function renderValue(value: JsonNode): ReactNode {
 
     case "boolean":
       return (
-        <span className={`u-jsoncolor--boolean${value ? "true" : "false"}`}>
-          {String(value)}
-        </span>
+        <span className={`u-jsoncolor--boolean${value}`}>{String(value)}</span>
       );
 
     case "number":
