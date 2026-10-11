@@ -74,8 +74,6 @@ function renderValue(value: JsonNode, path: string = "root"): ReactNode {
       );
 
     case "boolean":
-      console.log(type);
-
       return (
         <Draggable id={path} value={String(value)} path={path} type={type} />
       );

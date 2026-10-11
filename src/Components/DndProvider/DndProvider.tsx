@@ -1,8 +1,9 @@
 import type { ReactNode } from "react";
 import { useState } from "react";
 import { DragDropProvider, DragOverlay } from "@dnd-kit/react";
+import Dragging from "../Dragging/Dragging.js";
 
-type DraggedItem = {
+export type DraggedItem = {
   value: string;
   path: string;
   type: string;
@@ -33,7 +34,7 @@ function DndProvider({ children }: { children: ReactNode }) {
     >
       {children}
       <DragOverlay>
-        <p>{draggedItem?.value}</p>
+        <Dragging item={draggedItem} />
       </DragOverlay>
     </DragDropProvider>
   );

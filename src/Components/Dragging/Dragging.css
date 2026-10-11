@@ -1,0 +1,14 @@
+.c-dragging {
+    padding-inline: 10px;
+    padding-block: 5px;
+
+    border-radius: 5px;
+
+    background-color: var(--json-background);
+
+    min-width: max-content;
+
+    small {
+        color: var(--json-keys);
+    }
+}
