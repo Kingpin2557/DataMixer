@@ -8,9 +8,13 @@
 
     background-color: var(--json-background);
 
-    min-width: max-content;
+    width: fit-content;
 
     small {
         color: var(--json-keys);
+    }
+
+    p {
+        max-width: 50ch;
     }
 }
