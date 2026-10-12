@@ -1,8 +1,10 @@
 import "./App.css";
 import { useState } from "react";
+import { ReactFlowProvider } from "@xyflow/react";
 import Dropzone from "./Components/Dropzone/Dropzone.js";
 import FileReader from "./Components/FileReader/FileReader.js";
 import DataMixer from "./Components/DataMixer/DataMixer.js";
+import DataFlow from "./Components/DataFlow/DataFlow.js";
 import DndProvider from "./Components/DndProvider/DndProvider.js";
 
 function App() {
@@ -34,7 +36,11 @@ function App() {
           )}
         </section>
         <section className="u-bottom">
-          <DataMixer />
+          <ReactFlowProvider>
+            <DataFlow id="react-flow">
+              <DataMixer />
+            </DataFlow>
+          </ReactFlowProvider>
         </section>
       </main>
     </DndProvider>
