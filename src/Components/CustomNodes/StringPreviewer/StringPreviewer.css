@@ -20,4 +20,5 @@
 
 .c-string__handle--string {
     background-color: var(--nodes-string);
+    filter: brightness(var(--nodes-filter));
 }

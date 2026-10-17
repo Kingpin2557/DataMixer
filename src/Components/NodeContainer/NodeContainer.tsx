@@ -32,7 +32,7 @@ function NodeContainer({ data }: NodeProps<NodeContainerNode>) {
               id="1"
               type="source"
               position={Position.Right}
-              className={`c-stringpreviewer__handle c-stringpreviewer__handle--${data.type}`}
+              className={`c-string__handle c-string__handle--${data.type}`}
             />
           </String>
         );
@@ -43,7 +43,7 @@ function NodeContainer({ data }: NodeProps<NodeContainerNode>) {
               id="1"
               type="source"
               position={Position.Right}
-              className={`c-numberpreviewer__handle c-numberpreviewer__handle--${data.type}`}
+              className={`c-number__handle c-number__handle--${data.type}`}
             />
           </Number>
         );
@@ -54,7 +54,7 @@ function NodeContainer({ data }: NodeProps<NodeContainerNode>) {
               id="1"
               type="source"
               position={Position.Right}
-              className={`c-booleanpreviewer__handle c-booleanpreviewer__handle--${data.type}`}
+              className={`c-boolean__handle c-boolean__handle--${data.type}`}
             />
           </Boolean>
         );

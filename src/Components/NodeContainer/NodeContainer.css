@@ -16,6 +16,7 @@
 }
 
 .c-nodecontainer--closed {
+    position: relative;
     padding-block: 0;
 
     .c-nodecontainer__body,
@@ -26,6 +27,12 @@
         border-radius: 5px;
     }
 
+    .c-string,
+    .c-boolean,
+    .c-number {
+        position: static;
+        height: 100%;
+    }
     .c-nodecontainer__body > div > *:not(.react-flow__handle) {
         opacity: 0;
     }
@@ -40,7 +47,7 @@
     padding-inline-start: var(--padding);
     padding-block: 3px;
 
-    & > div > small {
+    & small {
         color: var(--json-keys);
     }
 }

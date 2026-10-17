@@ -1,0 +1,19 @@
+.c-boolean {
+    position: relative;
+}
+
+.c-boolean__value {
+    display: flex;
+    gap: 1rem;
+
+    margin-block-end: 5px;
+}
+
+.c-boolean__handle {
+    border: none;
+}
+
+.c-boolean__handle--boolean {
+    background-color: var(--nodes-boolean);
+    filter: brightness(var(--nodes-filter));
+}

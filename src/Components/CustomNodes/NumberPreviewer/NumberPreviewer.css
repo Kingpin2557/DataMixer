@@ -1,4 +1,6 @@
 .c-number {
+    position: relative;
+
     display: flex;
     flex-direction: column;
 
@@ -7,4 +9,13 @@
     input {
         width: 80%;
     }
+}
+
+.c-number__handle {
+    border: none;
+}
+
+.c-number__handle--number {
+    background-color: var(--nodes-number);
+    filter: brightness(var(--nodes-filter));
 }
