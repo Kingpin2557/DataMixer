@@ -3,11 +3,10 @@ import type { PreviewerProps } from "../index.js";
 
 function StringPreviewer({ info, children }: PreviewerProps) {
   return (
-    <div className="c-stringpreviewer">
-      <p className="c-stringpreviewer__key">
-        <small>{info.key}:</small>
-      </p>
-      <p className="c-stringpreviewer__value">"{info.value}"</p>
+    <div className="c-string">
+      <small>{info.key}:</small>
+
+      <p className="c-string__value">"{info.value}"</p>
       {children}
     </div>
   );

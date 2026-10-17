@@ -1,0 +1,10 @@
+.c-number {
+    display: flex;
+    flex-direction: column;
+
+    margin-block-end: 5px;
+
+    input {
+        width: 80%;
+    }
+}

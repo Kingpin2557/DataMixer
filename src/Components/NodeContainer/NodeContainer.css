@@ -37,7 +37,14 @@
 
 .c-nodecontainer__body {
     grid-row: 2;
+    padding-inline-start: var(--padding);
+    padding-block: 3px;
+
+    & > div > small {
+        color: var(--json-keys);
+    }
 }
+
 .c-nodecontainer__header {
     display: flex;
     flex-direction: row;

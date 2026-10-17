@@ -1,26 +1,23 @@
-.c-stringpreviewer {
+.c-string {
     position: relative;
 
     height: 100%;
-    padding-inline-start: var(--padding);
-    padding-block: 3px;
 
     border-radius: inherit;
+
+    margin-block-end: 5px;
 }
 
-.c-stringpreviewer__value {
+.c-string__value {
     padding-inline-end: var(--padding);
     color: var(--json-string);
     max-width: 35ch;
 }
-.c-stringpreviewer__key {
-    color: var(--json-keys);
+
+.c-string__handle {
+    border: none;
 }
 
-/*.c-stringpreviewer__handle {
-    border: none;
-}*/
-
-.c-stringpreviewer__handle--string {
+.c-string__handle--string {
     background-color: var(--nodes-string);
 }
