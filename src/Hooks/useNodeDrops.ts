@@ -10,8 +10,8 @@ type DragData = {
 
 const nodeConfig = {
   string: { label: "String previewer", type: "typePreviewer" },
-  number: { label: "Number previewer", type: "numberPreviewer" },
-  boolean: { label: "Boolean previewer", type: "booleanPreviewer" },
+  number: { label: "Number previewer", type: "typePreviewer" },
+  boolean: { label: "Boolean previewer", type: "typePreviewer" },
 } satisfies Record<
   NonNullable<DragData["type"]>,
   { label: string; type: string }

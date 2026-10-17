@@ -44,8 +44,6 @@ function DataMixer() {
 
   const nodeTypes = {
     typePreviewer: NodeContainer,
-    numberPreviewer: NodeContainer,
-    booleanPreviewer: NodeContainer,
   };
 
   const styles = {
