@@ -6,7 +6,6 @@ import {
   applyEdgeChanges,
   applyNodeChanges,
   addEdge,
-  useReactFlow,
   type Node,
   type Edge,
   type OnNodesChange,
@@ -17,49 +16,15 @@ import "@xyflow/react/dist/style.css";
 
 import "./DataMixer.css";
 import NodeContainer from "../NodeContainer/NodeContainer.js";
-import { useDragDropMonitor } from "@dnd-kit/react";
+import { useNodeDrop } from "../../Hooks/useNodeDrops.js";
 
 const initialNodes: Node[] = [];
-
 const initialEdges: Edge[] = [];
 
 function DataMixer() {
-  const { screenToFlowPosition } = useReactFlow();
-
   const [nodes, setNodes] = useState<Node[]>(initialNodes);
   const [edges, setEdges] = useState<Edge[]>(initialEdges);
-  useDragDropMonitor({
-    onDragEnd(event) {
-      if (event.canceled) return;
-
-      const { source, target, position } = event.operation;
-      if (target?.id !== "react-flow") return;
-
-      const data = source?.data;
-
-      if (data?.type !== "string") return;
-
-      setNodes((currentNodes) => [
-        ...currentNodes,
-        {
-          id: crypto.randomUUID(),
-          position: screenToFlowPosition({
-            x: position.current.x,
-            y: position.current.y,
-          }),
-          data: {
-            label: "String previewer",
-            type: "string",
-            info: {
-              key: data.path.split(".").at(-1),
-              value: data.value ?? "",
-            },
-          },
-          type: "typePreviewer",
-        },
-      ]);
-    },
-  });
+  useNodeDrop(setNodes);
 
   const onNodesChange: OnNodesChange = useCallback(
     (changes) =>
@@ -79,6 +44,8 @@ function DataMixer() {
 
   const nodeTypes = {
     typePreviewer: NodeContainer,
+    numberPreviewer: NodeContainer,
+    booleanPreviewer: NodeContainer,
   };
 
   const styles = {

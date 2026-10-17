@@ -26,7 +26,7 @@
         border-radius: 5px;
     }
 
-    .c-nodecontainer__body > div > p {
+    .c-nodecontainer__body > div > *:not(.react-flow__handle) {
         opacity: 0;
     }
 
@@ -67,4 +67,12 @@
 
 .c-nodecontainer__header--string {
     background-color: var(--nodes-string);
+}
+
+.c-nodecontainer__header--number {
+    background-color: var(--nodes-number);
+}
+
+.c-nodecontainer__header--boolean {
+    background-color: var(--nodes-boolean);
 }

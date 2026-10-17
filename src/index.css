@@ -14,6 +14,8 @@
     --nodes-surface: hsl(0, 0%, 31%);
     --nodes-schadow: hsl(0deg 0% 0% / 0.19);
     --nodes-string: hsl(159, 64%, 28%);
+    --nodes-number: hsl(341, 45%, 35%);
+    --nodes-boolean: hsl(284, 34%, 43%);
 
     --sans: system-ui, "Segoe UI", Roboto, sans-serif;
     --heading: system-ui, "Segoe UI", Roboto, sans-serif;
