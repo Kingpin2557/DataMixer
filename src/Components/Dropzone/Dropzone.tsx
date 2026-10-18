@@ -4,20 +4,25 @@ import { useDropzone } from "react-dropzone";
 type DataLoaderProp = {
   id: string;
   onFileDrop: (file: Blob) => void;
+  hasFile: boolean;
 };
 
-function Dropzone({ id, onFileDrop }: DataLoaderProp) {
+function Dropzone({ id, onFileDrop, hasFile }: DataLoaderProp) {
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles) => {
-      onFileDrop(acceptedFiles[0] as File);
+      const selectedFile = acceptedFiles[0];
+      if (selectedFile) onFileDrop(selectedFile);
     },
     noClick: true,
   });
 
   return (
-    <div {...getRootProps()} className="c-dropzone">
+    <div
+      {...getRootProps()}
+      className={`c-dropzone ${hasFile ? "c-dropzone--file" : ""}`}
+    >
       <input {...getInputProps()} id={id} />
-      <p>Drag 'n' drop some files here, or click to select files</p>
+      <p>{hasFile ? "" : "Drag and drop a JSON file here."}</p>
     </div>
   );
 }

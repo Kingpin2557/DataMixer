@@ -64,20 +64,20 @@ function NodeContainer({ data }: NodeProps<NodeContainerNode>) {
   }
 
   return (
-    <div className={`c-nodecontainer ${open ? "" : "c-nodecontainer--closed"}`}>
-      <div
-        className={`c-nodecontainer__header c-nodecontainer__header--${data.type}`}
-      >
-        <Arrow
-          onClick={() => {
-            setOpen((prev) => !prev);
-          }}
-          className="c-nodecontainer__icon"
-        />
+    <div className={`c-node ${open ? "" : "c-node--closed"}`}>
+      <div className={`c-node__header c-node__header--${data.type}`}>
+        <div className="c-node__icon">
+          <Arrow
+            onClick={() => {
+              setOpen((prev) => !prev);
+            }}
+            className={`c-node__icon c-node__icon--${data.type}`}
+          />
+        </div>
         <p>{data.label}</p>
       </div>
 
-      <div className="c-nodecontainer__body">{renderPreviewer()}</div>
+      <div className="c-node__body">{renderPreviewer()}</div>
     </div>
   );
 }

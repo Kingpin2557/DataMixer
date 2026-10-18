@@ -6,31 +6,44 @@ import {
   applyEdgeChanges,
   applyNodeChanges,
   addEdge,
-  type Node,
-  type Edge,
-  type OnNodesChange,
-  type OnEdgesChange,
-  type OnConnect,
+  MiniMap,
+} from "@xyflow/react";
+import type {
+  Edge,
+  OnNodesChange,
+  OnEdgesChange,
+  OnConnect,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 
 import "./DataMixer.css";
 import NodeContainer from "../NodeContainer/NodeContainer.js";
 import { useNodeDrop } from "../../Hooks/useNodeDrops.js";
+import { useLiveQuery } from "dexie-react-hooks";
+import { db } from "../../db.js";
 
-const initialNodes: Node[] = [];
 const initialEdges: Edge[] = [];
 
 function DataMixer() {
-  const [nodes, setNodes] = useState<Node[]>(initialNodes);
+  const nodes = useLiveQuery(() => db.nodes.toArray(), [], []);
+
   const [edges, setEdges] = useState<Edge[]>(initialEdges);
-  useNodeDrop(setNodes);
+  useNodeDrop();
 
   const onNodesChange: OnNodesChange = useCallback(
-    (changes) =>
-      setNodes((nodesSnapshot) => applyNodeChanges(changes, nodesSnapshot)),
-    [setNodes],
+    (changes) => {
+      if (!nodes) return;
+
+      const updatedNodes = applyNodeChanges(changes, nodes);
+
+      void db.transaction("rw", db.nodes, async () => {
+        await db.nodes.clear();
+        await db.nodes.bulkPut(updatedNodes);
+      });
+    },
+    [nodes],
   );
+
   const onEdgesChange: OnEdgesChange = useCallback(
     (changes) =>
       setEdges((edgesSnapshot) => applyEdgeChanges(changes, edgesSnapshot)),
@@ -63,7 +76,7 @@ function DataMixer() {
         nodeTypes={nodeTypes}
         fitView
       >
-        {/*<MiniMap />*/}
+        <MiniMap />
         <Background />
         <Controls />
       </ReactFlow>

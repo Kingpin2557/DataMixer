@@ -1,4 +1,4 @@
-.c-nodecontainer {
+.c-node {
     --heading-height: 40px;
 
     display: grid;
@@ -14,12 +14,12 @@
         padding 0.3s ease-in;
 }
 
-.c-nodecontainer--closed {
+.c-node--closed {
     position: relative;
     padding-block: 0;
 
-    .c-nodecontainer__body,
-    .c-nodecontainer__header {
+    .c-node__body,
+    .c-node__header {
         grid-row: 1;
         grid-column: 1;
         height: var(--heading-height);
@@ -32,7 +32,7 @@
         position: static;
         height: 100%;
     }
-    .c-nodecontainer__body > div > *:not(.react-flow__handle) {
+    .c-node__body > div > *:not(.react-flow__handle) {
         opacity: 0;
     }
 
@@ -41,7 +41,7 @@
         padding 0.3s ease-in;
 }
 
-.c-nodecontainer__body {
+.c-node__body {
     grid-row: 2;
     padding-inline-start: 10px;
     padding-block-end: 3px;
@@ -52,7 +52,7 @@
     }
 }
 
-.c-nodecontainer__header {
+.c-node__header {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -71,22 +71,62 @@
     box-shadow: 0px 3px 7px 1px var(--nodes-schadow);
 }
 
-.c-nodecontainer__icon {
+.c-node__icon {
+    display: grid;
+
     width: 20px;
     height: auto;
     aspect-ratio: 1 / 1;
+
     cursor: pointer;
     z-index: 10;
+
+    border-radius: 3px;
+
+    transition: background-color 0.3s ease-in;
+
+    &:hover {
+        transition: background-color 0.3s ease-in;
+        .c-node__icon--string {
+            background-color: color-mix(
+                in srgb,
+                var(--nodes-string) 49%,
+                transparent
+            );
+
+            filter: brightness(var(--nodes-number-filter));
+        }
+
+        .c-node__icon--number {
+            background-color: color-mix(
+                in srgb,
+                var(--nodes-number) 49%,
+                transparent
+            );
+
+            filter: brightness(var(--nodes-number-filter));
+        }
+
+        .c-node__icon--boolean {
+            background-color: color-mix(
+                in srgb,
+                var(--nodes-boolean) 49%,
+                transparent
+            );
+
+            filter: brightness(var(--nodes-number-filter));
+        }
+    }
 }
 
-.c-nodecontainer__header--string {
+.c-node__header--string {
     background-color: var(--nodes-string);
 }
 
-.c-nodecontainer__header--number {
+.c-node__header--number {
     background-color: var(--nodes-number);
 }
 
-.c-nodecontainer__header--boolean {
+.c-node__header--boolean {
     background-color: var(--nodes-boolean);
 }

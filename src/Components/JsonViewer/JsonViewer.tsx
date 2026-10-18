@@ -1,14 +1,16 @@
 import "./JsonViewer.css";
 import type { ReactNode } from "react";
 import Draggable from "../Draggable/Draggable.js";
-
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { useJsonFile } from "../../Hooks/useJsonFile.js"; // Adjust path if needed
 
 export type JsonNode =
   null | boolean | number | string | JsonNode[] | { [key: string]: JsonNode };
 
 type JsonViewerProps = {
-  result: JsonNode;
+  file: Blob | null;
+  slot: "left" | "right";
+  save?: boolean;
 };
 
 function getType(value: JsonNode): string {
@@ -17,7 +19,7 @@ function getType(value: JsonNode): string {
   return typeof value;
 }
 
-function renderValue(value: JsonNode, path: string = "root"): ReactNode {
+function renderValue(value: JsonNode, path = "root"): ReactNode {
   const type = getType(value);
 
   switch (type) {
@@ -31,7 +33,6 @@ function renderValue(value: JsonNode, path: string = "root"): ReactNode {
               className="c-jsonviewer__icon"
               aria-hidden="true"
             />
-
             <small className="c-jsonviewer__object c-jsonviewer__object--opening">
               {"{"}
             </small>
@@ -57,7 +58,6 @@ function renderValue(value: JsonNode, path: string = "root"): ReactNode {
               className="c-jsonviewer__icon"
               aria-hidden="true"
             />
-
             <small className="c-jsonviewer__array c-jsonviewer__array--opening">
               [
             </small>
@@ -74,15 +74,7 @@ function renderValue(value: JsonNode, path: string = "root"): ReactNode {
       );
 
     case "boolean":
-      return (
-        <Draggable id={path} value={String(value)} path={path} type={type} />
-      );
-
     case "number":
-      return (
-        <Draggable id={path} value={String(value)} path={path} type={type} />
-      );
-
     case "string":
       return (
         <Draggable id={path} value={String(value)} path={path} type={type} />
@@ -95,7 +87,12 @@ function renderValue(value: JsonNode, path: string = "root"): ReactNode {
   }
 }
 
-function JsonViewer({ result }: JsonViewerProps) {
+function JsonViewer({ file, slot, save = true }: JsonViewerProps) {
+  const { result, error } = useJsonFile(file, slot, save);
+
+  if (error) return <p>{error}</p>;
+  if (result === undefined) return null;
+
   return <div className="c-jsonviewer">{renderValue(result)}</div>;
 }
 
