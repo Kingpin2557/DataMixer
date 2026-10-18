@@ -33,6 +33,8 @@ export function useNodeDrop(setNodes: SetNodes) {
       if (!data?.type || !data.path) return;
 
       const config = nodeConfig[data.type];
+      const key = data?.path?.split(".").at(-1);
+      const keyTwo = data?.path?.split(".").at(-2);
 
       setNodes((currentNodes) => [
         ...currentNodes,
@@ -47,7 +49,7 @@ export function useNodeDrop(setNodes: SetNodes) {
             label: config.label,
             type: data.type,
             info: {
-              key: data?.path?.split(".").at(-1) ?? "",
+              key: `${keyTwo}.${key}`,
               value: data.value ?? "",
             },
           },

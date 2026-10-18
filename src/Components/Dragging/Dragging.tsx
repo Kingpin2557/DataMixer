@@ -5,6 +5,7 @@ function Dragging({ item }: { item: DraggedItem | null }) {
   if (!item) return null;
 
   const key = item.path.split(".").at(-1);
+  const keyTwo = item.path.split(".").at(-2);
 
   const className =
     item.type === "boolean"
@@ -13,7 +14,9 @@ function Dragging({ item }: { item: DraggedItem | null }) {
 
   return (
     <div className={`c-dragging ${className}`}>
-      <small>{key}:</small>
+      <small>
+        {keyTwo}.{key}:
+      </small>
       <p>{item.value}</p>
     </div>
   );

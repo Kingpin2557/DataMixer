@@ -2,11 +2,33 @@
     position: relative;
 }
 
-.c-boolean__value {
+.c-boolean__header {
     display: flex;
+    align-items: center;
     gap: 1rem;
 
     margin-block-end: 5px;
+}
+
+.c-boolean__value {
+    display: grid;
+
+    height: 20px;
+    width: auto;
+    aspect-ratio: 1 / 1;
+}
+
+.c-boolean__icon {
+    width: 100%;
+    height: 100%;
+}
+
+.c-boolean__icon--true {
+    color: var(--json-boolean-true);
+}
+
+.c-boolean__icon--false {
+    color: var(--json-boolean-false);
 }
 
 .c-boolean__handle {
@@ -15,5 +37,5 @@
 
 .c-boolean__handle--boolean {
     background-color: var(--nodes-boolean);
-    filter: brightness(var(--nodes-filter));
+    filter: brightness(var(--nodes-handle-filter));
 }

@@ -6,7 +6,7 @@ function StringPreviewer({ info, children }: PreviewerProps) {
     <div className="c-string">
       <small>{info.key}:</small>
 
-      <p className="c-string__value">"{info.value}"</p>
+      <p className="c-string__value u-value">"{info.value}"</p>
       {children}
     </div>
   );

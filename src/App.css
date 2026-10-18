@@ -49,7 +49,6 @@ section {
 .u-jsoncolor--string {
     color: var(--json-string);
 }
-
 .u-jsoncolor--booleantrue {
     color: var(--json-boolean-true);
 }
@@ -64,4 +63,13 @@ section {
 }
 .u-jsoncolor--array {
     color: var(--json-array-brackets);
+}
+
+.u-value {
+    padding: 1px;
+
+    border-radius: 4px;
+
+    background-color: var(--nodes-surface);
+    filter: brightness(var(--nodes-number-filter));
 }

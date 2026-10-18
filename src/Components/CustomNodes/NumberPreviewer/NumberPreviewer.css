@@ -4,11 +4,16 @@
     display: flex;
     flex-direction: column;
 
-    margin-block-end: 5px;
+    padding-inline-end: 15px;
+    padding-block-end: 5px;
 
     input {
         width: 80%;
     }
+}
+
+.c-number__value {
+    padding-inline: 5px;
 }
 
 .c-number__handle {
@@ -17,5 +22,5 @@
 
 .c-number__handle--number {
     background-color: var(--nodes-number);
-    filter: brightness(var(--nodes-filter));
+    filter: brightness(var(--nodes-handle-filter));
 }

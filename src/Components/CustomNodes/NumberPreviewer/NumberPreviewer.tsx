@@ -5,7 +5,7 @@ function NumberPreviewer({ info, children }: PreviewerProps) {
   return (
     <div className="c-number">
       <small>{info.key}:</small>
-      <input value={info.value} />
+      <div className="c-number__value u-value">{info.value} </div>
       {children}
     </div>
   );

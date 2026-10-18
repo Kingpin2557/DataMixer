@@ -1,5 +1,4 @@
 .c-nodecontainer {
-    --padding: 1rem;
     --heading-height: 40px;
 
     display: grid;
@@ -44,8 +43,9 @@
 
 .c-nodecontainer__body {
     grid-row: 2;
-    padding-inline-start: var(--padding);
-    padding-block: 3px;
+    padding-inline-start: 10px;
+    padding-block-end: 3px;
+    padding-block-start: 10px;
 
     & small {
         color: var(--json-keys);
@@ -62,7 +62,7 @@
 
     width: stretch;
     height: var(--heading-height);
-    padding-inline: var(--padding);
+    padding-inline: 15px;
     padding-block: 5px;
 
     border-top-left-radius: inherit;
